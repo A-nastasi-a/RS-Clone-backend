@@ -32,7 +32,6 @@ class userController {
             return response.status(201).json({message: "User successfully created"});
         }
         catch (e) {
-            console.log(e);
             response.status(401).json({message: "Registration Error"});
         }
     }
@@ -52,7 +51,6 @@ class userController {
             return response.status(200).json({token});
         }   
         catch (e) {
-            console.log(e);
             response.status(403).json({message: "Login Error"});  
         }
     }
