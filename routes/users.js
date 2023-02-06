@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = new express.Router();
+const controller = require('../controllers/usersController');
+const {check} = require('express-validator');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.json([]);
-});
+router.post('/registration', [
+  check('username', "Username can't be empty").notEmpty(),
+  check('password', "Password should be more than 8 and less than 15 symbols").isLength({min: 8, max: 15})
+], controller.registration);
+router.post('/login', controller.login);
+router.get('/', controller.getUsers);
+
+
 
 module.exports = router;
