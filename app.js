@@ -1,5 +1,7 @@
 const express = require('express');
 const usersRouter = require('./routes/users');
+const tablesRouter = require('./routes/tables');
+
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 5000;
 
@@ -11,6 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/users', usersRouter);
+app.use('/tables', tablesRouter);
 
 
 const start = async () => {

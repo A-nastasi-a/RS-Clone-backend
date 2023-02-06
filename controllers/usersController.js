@@ -60,7 +60,7 @@ class userController {
             response.json("server work");
         }
         catch (e) {
-
+            response.status(404).json({message: "Not found"});  
         }
     }
 }
