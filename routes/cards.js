@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = new express.Router();
+const controller = require('../controllers/cardsController');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/',  controller.getCards);
+router.get('/:id', controller.getCard);
+router.post('/', controller.addCard);
+router.delete('/:id', controller.deleteCard);
+router.put('/:id', controller.updateCard);
 
 module.exports = router;

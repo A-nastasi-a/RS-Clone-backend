@@ -1,9 +1,0 @@
-const mongoose = require('mongoose');
-
-const Table = new mongoose.Schema({
-    // username: {type: String, unique: true, required: true},
-    // password: {type: String, required: true},
-    // roles: [{type: String, ref: 'Rple'}]
-});
-
-module.exports = mongoose.model("Table", Table);
