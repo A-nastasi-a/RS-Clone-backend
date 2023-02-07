@@ -55,9 +55,53 @@ class userController {
         }
     }
 
+    async deleteUser(request, response) {
+        try {
+            const user = await User.findById(request.params.id);
+            if (!user) {
+                response.status(404).json({message: "Not found"});
+            };
+            user.delete();
+            response.status(200).json('Successfully delete');
+        }
+        catch (e) {
+            response.status(404).json({message: "Not found"});  
+        }
+    }
+
+    async updateUser(request, response) {
+        try {
+            let user = await User.findById(request.params.id);
+            if (!user) {
+                response.status(404).json({message: "This card doesn't exist"});
+            };
+            
+            const { username, password, roles, name, description, tables, cards } = request.body;
+            User.findByIdAndUpdate(request.params.id, { username, password, roles, name, description, tables, cards }, () => {});
+            response.status(201).json({message: "User was successfully changed"});
+        }
+        catch (e) {
+            response.status(404).json({message: "Not found"});  
+        }
+    }
+
+    async getUser(request, response) {
+        try {
+            const user = await User.findById(request.params.id);
+            if (!user) {
+                response.status(404).json({message: "Not found"});
+            }
+            response.status(200).json(user);
+        }
+        catch (e) {
+            response.status(404).json({message: "Not found"});  
+        }
+    }
+
     async getUsers(request, response) {
         try {
-            response.json("server work");
+            const users = await User.find();
+            response.status(200).json(users);
         }
         catch (e) {
             response.status(404).json({message: "Not found"});  

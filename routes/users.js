@@ -9,6 +9,9 @@ router.post('/registration', [
 ], controller.registration);
 router.post('/login', controller.login);
 router.get('/', controller.getUsers);
+router.delete('/:id', controller.deleteUser);
+router.put('/:id', controller.updateUser);
+router.get('/:id', controller.getUser);
 
 
 
