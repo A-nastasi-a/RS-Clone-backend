@@ -10,8 +10,8 @@ class tableController {
             if (!errors.isEmpty()) {
                 return response.status(401).json({message: "Wrong credentials", errors})
             }
-            const { name, description, cards, date, imageURL, creator, members } = request.body;
-            const table = new Table({ name, description, cards, date, imageURL, creator, members });
+            const { name, description, cards, date, imageURL, creator, members, columns } = request.body;
+            const table = new Table({ name, description, cards, date, imageURL, creator, members, columns });
             table.save();
             response.status(201).json({message: "Table created successfully"});
         }
@@ -41,8 +41,8 @@ class tableController {
                 response.status(404).json({message: "This table doesn't exist"});
             };
             
-            const { name, description, cards, date, imageURL, creator, members } = request.body;
-            Table.findByIdAndUpdate(request.params.id, { name, description, cards, date, imageURL, creator, members }, () => {});
+            const { name, description, cards, date, imageURL, creator, members, columns } = request.body;
+            Table.findByIdAndUpdate(request.params.id, { name, description, cards, date, imageURL, creator, members, columns }, () => {});
             response.status(201).json({message: "Table was successfully changed"});
         }
         catch (e) {

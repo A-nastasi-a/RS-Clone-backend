@@ -7,7 +7,8 @@ const Table = new mongoose.Schema({
     date: Date,
     imageURL: String,
     creator: {type: String, ref: 'User'},
-    members: [{type: String, ref: 'User'}]
+    members: [{type: String, ref: 'User'}],
+    columns: [{type: String}]
 });
 
 module.exports = mongoose.model("Table", Table);
