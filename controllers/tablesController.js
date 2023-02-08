@@ -12,6 +12,9 @@ class tableController {
             }
             const { name, description, cards, date, imageURL, creator, members, columns } = request.body;
             const table = new Table({ name, description, cards, date, imageURL, creator, members, columns });
+            const userCreator = await User.findById(creator);
+            userCreator.tables.push(table.id);
+            userCreator.save();
             table.save();
             response.status(201).json({message: "Table created successfully"});
         }
