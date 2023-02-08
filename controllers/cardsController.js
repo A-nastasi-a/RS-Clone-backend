@@ -12,6 +12,12 @@ class cardController {
             }
             const { name, description, table, column, comments, users, creator } = request.body;
             const card = new Card({ name, description, table, column, comments, users, creator });
+            const cardTable = await Table.findById(table); //добавление таблице айди карточки
+            cardTable.cards.push(card.id);
+            cardTable.save();
+            const cardCreator = await User.findById(creator); //добавление пользователю айди карточки
+            cardCreator.cards.push(card.id);
+            cardCreator.save();
             card.save();
             response.status(201).json({message: "Card created successfully"});
         }
@@ -25,6 +31,12 @@ class cardController {
             if (!card) {
                 response.status(404).json({message: "Not found"});
             };
+            const cardTable = await Table.findById(card.table); //удаление из таблицы айди карточки
+            cardTable.cards.splice(cardTable.cards.indexOf(card.id), 1);
+            cardTable.save();
+            const cardCreator = await User.findById(card.creator); //удаление у пользователя айди карточки
+            cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
+            cardCreator.save();
             card.delete();
             response.status(200).json('Successfully delete');
         }
