@@ -6,8 +6,8 @@ const User = new mongoose.Schema({
     roles: [{type: String, ref: 'Role'}],
     name: {type: String},
     description: {type: String},
-    tables: [{type: String, ref: "Table"}],
-    cards: [{type: String, ref: "Card"}]
+    tables: [{type: mongoose.Schema.Types.ObjectId, ref: "Table"}],
+    cards: [{type: mongoose.Schema.Types.ObjectId, ref: "Card"}]
 });
 
 module.exports = mongoose.model("User", User);

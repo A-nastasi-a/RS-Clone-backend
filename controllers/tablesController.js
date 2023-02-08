@@ -12,6 +12,9 @@ class tableController {
             }
             const { name, description, cards, date, imageURL, creator, members, columns } = request.body;
             const table = new Table({ name, description, cards, date, imageURL, creator, members, columns });
+            const userCreator = await User.findById(creator);
+            userCreator.tables.push(table.id);
+            userCreator.save();
             table.save();
             response.status(201).json({message: "Table created successfully"});
         }
@@ -26,6 +29,9 @@ class tableController {
             if (!table) {
                 response.status(404).json({message: "Not found"});
             };
+            const userCreator = await User.findById(table.creator);
+            userCreator.tables.splice(userCreator.tables.indexOf(table.id), 1);
+            userCreator.save();
             table.delete();
             response.status(200).json('Successfully delete');
         }
