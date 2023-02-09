@@ -7,14 +7,10 @@ const cardsRouter = require('./routes/cards');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 5000;
 
-
-
-
-
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:8080/",
+  origin: "*",
 }));
 app.use(express.json());
 app.use('/users', usersRouter);
