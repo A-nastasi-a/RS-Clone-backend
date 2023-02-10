@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({
-  origin: "https://rs-clone-back.up.railway.app",
+  origin: "http://localhost:8080/",
 }));
 app.use(express.json());
 app.use('/users', usersRouter);
