@@ -32,10 +32,10 @@ class cardController {
                 response.status(404).json({message: "Not found"});
             };
             const cardTable = await Table.findById(card.table); 
-            cardTable.cards.splice(cardTable.cards.indexOf(card.id), 1);
+            await cardTable.cards.splice(cardTable.cards.indexOf(card.id), 1);
             cardTable.save();
             const cardCreator = await User.findById(card.creator); 
-            cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
+            await cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
             cardCreator.save();
             card.delete();
             response.status(200).json('Successfully delete');

@@ -30,7 +30,7 @@ class tableController {
                 response.status(404).json({message: "Not found"});
             };
             const userCreator = await User.findById(table.creator);
-            userCreator.tables.splice(userCreator.tables.indexOf(table.id), 1);
+            await userCreator.tables.splice(userCreator.tables.indexOf(table.id), 1);
             userCreator.save();
             table.delete();
             response.status(200).json('Successfully delete');
