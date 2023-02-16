@@ -8,7 +8,8 @@ const Table = new mongoose.Schema({
     imageURL: String,
     creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    columns: [{type: String}]
+    columns: [{type: String}],
+    starred: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model("Table", Table);
