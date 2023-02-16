@@ -19,17 +19,18 @@ class cardController {
             cardCreator.cards.push(card.id);
             cardCreator.save();
             card.save();
-            response.status(201).json({message: "Card created successfully"});
+            return response.status(201).json({message: "Card created successfully"});
         }
         catch (e) {
-            response.status(404).json({message: "Wrong data"}); 
+            return response.status(404).json({message: "Wrong data"}); 
         }
     }
     async deleteCard(request, response) {
         try {
             const card = await Card.findById(request.params.id);
+            console.log(card, 'что-то странное');
             if (!card) {
-                response.status(404).json({message: "Not found"});
+                return response.status(404).json({message: "Not found"});
             };
             const cardTable = await Table.findById(card.table); 
             await cardTable.cards.splice(cardTable.cards.indexOf(card.id), 1);
@@ -38,46 +39,46 @@ class cardController {
             await cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
             cardCreator.save();
             card.delete();
-            response.status(200).json('Successfully delete');
+            return response.status(200).json('Successfully delete');
         }
         catch (e) {
-            response.status(404).json({message: "Not found"});
+            return response.status(404).json({message: "Not found"});
         }
     }
     async updateCard(request, response) {
         try {
             let card = await Card.findById(request.params.id);
             if (!card) {
-                response.status(404).json({message: "This card doesn't exist"});
+                return response.status(404).json({message: "This card doesn't exist"});
             };
             
             const { name, description, table, column, comments, users, creator } = request.body;
             Card.findByIdAndUpdate(request.params.id, { name, description, table, column, comments, users, creator }, () => {});
-            response.status(201).json({message: "Card was successfully changed"});
+            return response.status(201).json({message: "Card was successfully changed"});
         }
         catch (e) {
-            response.status(404).json({message: "Wrong data"}); 
+            return response.status(404).json({message: "Wrong data"}); 
         }
     }
     async getCard(request, response) {
         try {
             const card = await Card.findById(request.params.id);
             if (!card) {
-                response.status(404).json({message: "Not found"});
+                return response.status(404).json({message: "Not found"});
             }
-            response.status(200).json(card);
+            return response.status(200).json(card);
         }
         catch (e) {
-            response.status(404).json({message: "Not found"});
+            return response.status(404).json({message: "Not found"});
         }
     }
     async getCards(request, response) {
         try {
             const cards = await Card.find();
-            response.status(200).json(cards);
+            return response.status(200).json(cards);
         }
         catch (e) {
-            response.status(404).json({message: "Not Found"});
+            return response.status(404).json({message: "Not Found"});
         }
     }
 }

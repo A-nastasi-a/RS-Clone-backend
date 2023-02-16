@@ -16,10 +16,10 @@ class tableController {
             userCreator.tables.push(table.id);
             userCreator.save();
             table.save();
-            response.status(201).json({message: "Table created successfully"});
+            return response.status(201).json({message: "Table created successfully"});
         }
         catch (e) {
-            response.status(404).json({message: "Wrong data"}); 
+            return response.status(404).json({message: "Wrong data"}); 
         }
     }
 
@@ -27,16 +27,16 @@ class tableController {
         try {
             const table = await Table.findById(request.params.id);
             if (!table) {
-                response.status(404).json({message: "Not found"});
+                return response.status(404).json({message: "Not found"});
             };
             const userCreator = await User.findById(table.creator);
             await userCreator.tables.splice(userCreator.tables.indexOf(table.id), 1);
             userCreator.save();
             table.delete();
-            response.status(200).json('Successfully delete');
+            return response.status(200).json('Successfully delete');
         }
         catch (e) {
-            response.status(404).json({message: "Not found"});
+            return response.status(404).json({message: "Not found"});
         }
     }
 
@@ -44,15 +44,15 @@ class tableController {
         try {
             let table = await Table.findById(request.params.id);
             if (!table) {
-                response.status(404).json({message: "This table doesn't exist"});
+                return response.status(404).json({message: "This table doesn't exist"});
             };
             
             const { name, description, cards, date, imageURL, creator, members, columns } = request.body;
             Table.findByIdAndUpdate(request.params.id, { name, description, cards, date, imageURL, creator, members, columns }, () => {});
-            response.status(201).json({message: "Table was successfully changed"});
+            return response.status(201).json({message: "Table was successfully changed"});
         }
         catch (e) {
-            response.status(404).json({message: "Wrong data"}); 
+            return response.status(404).json({message: "Wrong data"}); 
         }
         
     }
@@ -61,22 +61,22 @@ class tableController {
         try {
             const table = await Table.findById(request.params.id);
             if (!table) {
-                response.status(404).json({message: "Not found"});
+                return response.status(404).json({message: "Not found"});
             }
-            response.status(200).json(table);
+            return response.status(200).json(table);
         }
         catch (e) {
-            response.status(404).json({message: "Not found"});
+            return response.status(404).json({message: "Not found"});
         }
     }
 
     async getTables(request, response) {
         try {
             const tables = await Table.find();
-            response.status(200).json(tables);
+            return response.status(200).json(tables);
         }
         catch (e) {
-            response.status(404).json({message: "Not found"}); 
+            return response.status(404).json({message: "Not found"}); 
         }
     }
 }
