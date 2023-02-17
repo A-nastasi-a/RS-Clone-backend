@@ -28,7 +28,7 @@ class cardController {
     async deleteCard(request, response) {
         try {
             const card = await Card.findById(request.params.id);
-            console.log(card, 'что-то странное');
+
             if (!card) {
                 return response.status(404).json({message: "Not found"});
             };
@@ -36,7 +36,7 @@ class cardController {
             await cardTable.cards.splice(cardTable.cards.indexOf(card.id), 1);
             cardTable.save();
             const cardCreator = await User.findById(card.creator); 
-            await cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
+            await cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1); //здесь
             cardCreator.save();
             card.delete();
             return response.status(200).json('Successfully delete');
