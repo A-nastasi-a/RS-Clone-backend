@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Table = require('../models/Table');
+const Card = require('../models/Card');
 const validator = require('express-validator');
 
 
@@ -29,9 +30,17 @@ class tableController {
             if (!table) {
                 return response.status(404).json({message: "Not found"});
             };
-            const userCreator = await User.findById(table.creator);
-            await userCreator.tables.splice(userCreator.tables.indexOf(table.id), 1);
-            userCreator.save();
+
+            for (let cardId of table.cards) {
+                const card = await Card.findById(cardId);
+                const cardCreator = await User.findById(card.creator); 
+                cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
+                await cardCreator.save();
+                card.delete();
+            };
+            const tableCreator = await User.findById(table.creator);
+            tableCreator.tables.splice(tableCreator.tables.indexOf(table.id), 1);
+            await tableCreator.save();
             table.delete();
             return response.status(200).json('Successfully delete');
         }

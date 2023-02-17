@@ -36,7 +36,7 @@ class cardController {
             await cardTable.cards.splice(cardTable.cards.indexOf(card.id), 1);
             cardTable.save();
             const cardCreator = await User.findById(card.creator); 
-            await cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1); //здесь
+            await cardCreator.cards.splice(cardCreator.cards.indexOf(card.id), 1);
             cardCreator.save();
             card.delete();
             return response.status(200).json('Successfully delete');
