@@ -49,8 +49,8 @@ class userController {
             if (!isPasswordValid) {
                 return response.status(403).json({message: 'Incorrect password'});
             }
-            const token = generateAccessToken(checkUser._id, checkUser.roles);
-            return response.status(200).json({token});
+            // const token = generateAccessToken(checkUser._id, checkUser.roles);
+            return response.status(200).json({id: checkUser.id});
         }   
         catch (e) {
             return response.status(403).json({message: "Login Error"});  
