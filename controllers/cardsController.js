@@ -28,7 +28,7 @@ class cardController {
     async deleteCard(request, response) {
         try {
             const card = await Card.findById(request.params.id);
-            console.log(card, 'что-то странное');
+
             if (!card) {
                 return response.status(404).json({message: "Not found"});
             };
