@@ -7,13 +7,13 @@ const validator = require('express-validator');
 const jwt = require('jsonwebtoken');
 const secret = require('../bin/keys');
 
-const generateAccessToken = (id, roles) => {
-    const payload = {
-        id, 
-        roles
-    }
-    return jwt.sign(payload, secret.secretKey);
-}
+// const generateAccessToken = (id, roles) => {
+//     const payload = {
+//         id, 
+//         roles
+//     }
+//     return jwt.sign(payload, secret.secretKey);
+// }
 
 class userController {
     async registration(request, response) {
